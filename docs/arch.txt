@@ -1,0 +1,78 @@
+input points - nx3
+|
+input transform
+|
+nx3
+|
+mlp(64,64) - shared? stogod ovo znaci
+|
+nx64
+|
+feature transform
+|
+nx64
+|
+kraj baseline mreze
+
+input transform je
+ulaz
+|
+|--------
+|	|
+|	T-net(3x3 transform)
+|	|
+|--------
+|
+matrix multiply
+
+
+feature transform je
+ulaz
+|
+|--------
+|	|
+|	T-net(64x64 transform)
+|	|
+|--------
+|
+matrix multiply
+
+
+i to je sve za baseline NN, dalje imamo cls net i seg net nadovezujemo se na onaj kraj nx64
+
+
+
+ClsfNet(uzima baseline NN izlaz)
+|
+MLP(64,128,1024) shared
+|
+nx1024
+|
+maxpool() na n podataka
+|
+1x1024 i to su globalne znacajke
+|
+mlp(512,256,k) note: k je broj klasa
+|
+1xk output scores
+
+
+
+
+SegNet(uzima nx64 i 1024)
+|
+concat u nx1088
+|
+mlp(512,256,128) shared
+|
+nx128 to su point feature
+|
+mlp(128,m) shared
+|
+nxm output scores
+
+
+NOTE: shared znaci primijeni MLP na svaku tocku zasebno
+
+
+

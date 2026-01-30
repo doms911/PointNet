@@ -1,0 +1,6 @@
+data/
+.venv/
+cache_modelnet10/
+cache_shapenetpart/
+__pycache__/
+*/__pycache__
